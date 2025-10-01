@@ -2,13 +2,9 @@ services:
   - type: web
     name: invoice-backend
     env: node
-    plan: starter
+    plan: free
     buildCommand: npm install
     startCommand: npm start
-    disk:
-      name: invoice-data
-      mountPath: /opt/render/project/src/backend/database
-      sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production
