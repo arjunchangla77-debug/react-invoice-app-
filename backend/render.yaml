@@ -2,9 +2,13 @@ services:
   - type: web
     name: invoice-backend
     env: node
-    plan: free
+    plan: starter
     buildCommand: npm install
     startCommand: npm start
+    disk:
+      name: invoice-data
+      mountPath: /opt/render/project/src/backend/database
+      sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production
@@ -13,5 +17,5 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: DATABASE_URL
-        value: ./database/invoice.db
+        value: ./database/users.db
     healthCheckPath: /api/health
