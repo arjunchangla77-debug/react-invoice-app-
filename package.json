@@ -3,32 +3,20 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@react-three/drei": "^10.7.6",
-    "@react-three/fiber": "^9.3.0",
-    "@stripe/react-stripe-js": "^2.9.0",
-    "@stripe/stripe-js": "^2.4.0",
-    "autoprefixer": "^10.4.8",
-    "concurrently": "^7.6.0",
     "crypto-js": "^4.2.0",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
     "lucide-react": "^0.263.1",
-    "postcss": "^8.4.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
-    "tailwindcss": "^3.1.8",
-    "three": "^0.180.0"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd backend && npm start",
-    "client": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "install-all": "npm install && cd backend && npm install"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +40,5 @@
     "autoprefixer": "^10.4.8",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }
