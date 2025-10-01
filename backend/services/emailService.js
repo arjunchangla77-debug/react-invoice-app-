@@ -7,11 +7,10 @@
  * - Invoice notifications with PDF attachments
  * - Password change notifications
  * 
- * Uses Nodemailer with Gmail SMTP by default.
- * Falls back to simulation mode if credentials are not configured.
+ * Uses mock email service for deployment without nodemailer dependency.
+ * Can be upgraded to use real email service later.
  */
 
-const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 class EmailService {
@@ -34,20 +33,9 @@ class EmailService {
       return;
     }
 
-    // Create nodemailer transporter with Gmail SMTP settings
-    this.transporter = nodemailer.createTransport({
-      service: process.env.EMAIL_SERVICE || 'gmail',
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false, // Use STARTTLS (false for port 587, true for port 465)
-      auth: {
-        user: process.env.EMAIL_USER, // Gmail address
-        pass: process.env.EMAIL_PASS  // Gmail app password (not regular password)
-      },
-      tls: {
-        rejectUnauthorized: false // Allow self-signed certificates
-      }
-    });
+    // Mock transporter - nodemailer not available
+    console.log('📧 Email service running in mock mode (nodemailer not installed)');
+    this.transporter = null;
   }
 
   /**
