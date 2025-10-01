@@ -3,7 +3,7 @@ services:
     name: invoice-backend
     env: node
     plan: free
-    buildCommand: npm install
+    buildCommand: npm ci --only=production
     startCommand: npm start
     envVars:
       - key: NODE_ENV
@@ -14,4 +14,6 @@ services:
         generateValue: true
       - key: DATABASE_URL
         value: ./database/users.db
+      - key: NODE_VERSION
+        value: 18.18.0
     healthCheckPath: /api/health
