@@ -22,5 +22,10 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "build": {
+    "env": {
+      "CI": "false"
+    }
+  }
 }
