@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Hide browser password reveal buttons */
+  input[type="password"]::-ms-reveal,
+  input[type="password"]::-ms-clear {
+    display: none;
+  }
+  
+  input[type="password"]::-webkit-credentials-auto-fill-button {
+    display: none !important;
+  }
+  
+  input[type="password"]::-webkit-strong-password-auto-fill-button {
+    display: none !important;
+  }
+  
+  /* Hide Edge password reveal button */
+  input[type="password"]::-ms-reveal {
+    display: none;
+  }
+  
+  /* Hide Chrome password reveal button */
+  input[type="password"]::-webkit-reveal {
+    display: none;
+  }
+}
+
+/* 3D CSS Utilities */
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .transform-style-preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  
+  /* 3D Hover Effects */
+  .hover-3d {
+    transition: transform 0.3s ease;
+  }
+  
+  .hover-3d:hover {
+    transform: translateZ(10px) rotateX(5deg) rotateY(5deg);
+  }
+  
+  /* Floating Animation - Disabled for static experience */
+  .animate-float {
+    /* Animation removed - keeping class for compatibility */
+  }
+  
+  /* Pulse Glow Animation - Disabled for static experience */
+  .animate-pulse-glow {
+    /* Animation removed - keeping class for compatibility */
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  
+  /* Dental Sparkle Animation - Disabled for static experience */
+  .animate-dental-sparkle {
+    /* Animation removed - keeping class for compatibility */
+  }
+  
+  /* 3D Rotate Animation - Disabled for static experience */
+  .animate-rotate-3d {
+    /* Animation removed - keeping class for compatibility */
+  }
+  
+  /* 3D Button Effect */
+  .btn-3d {
+    transform: translateZ(0);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .btn-3d:hover {
+    transform: translateY(-2px) translateZ(4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+  
+  .btn-3d:active {
+    transform: translateY(0) translateZ(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-xl transition-all duration-200;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200;
+  }
+  
+  .card {
+    @apply bg-white rounded-2xl shadow-xl p-8 backdrop-blur-lg;
+  }
+}
