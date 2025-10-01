@@ -104,22 +104,23 @@ app.use('/api/button-usage', buttonUsageRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/payments', paymentsRoutes);
 
-// Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../build')));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build', 'index.html'));
-  });
-}
-
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({
-    success: false,
-    message: 'API endpoint not found',
-    path: req.originalUrl
-  });
+// API-only mode - frontend served separately on Vercel
+// Catch-all route for non-API requests
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api/')) {
+    res.status(404).json({ 
+      error: 'API endpoint not found',
+      path: req.originalUrl
+    });
+  } else {
+    res.status(200).json({
+      message: 'EnamelPure Invoice Backend API',
+      status: 'running',
+      frontend: process.env.FRONTEND_URL || 'Frontend deployed separately',
+      api_docs: '/api/health for health check',
+      version: '1.0.0'
+    });
+  }
 });
 
 // Global error handler
