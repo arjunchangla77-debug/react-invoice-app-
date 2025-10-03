@@ -26,6 +26,8 @@ class AuthController {
       // Check if user already exists
       console.log('Checking if user exists:', username);
       const existingUser = await User.findByUsername(username);
+      console.log('User check result:', existingUser ? 'User exists' : 'User does not exist');
+      
       if (existingUser) {
         console.log('Username already exists:', username);
         return res.status(400).json({
@@ -37,6 +39,8 @@ class AuthController {
       // Check if email already exists
       console.log('Checking if email exists:', email);
       const existingEmail = await User.findByEmail(email);
+      console.log('Email check result:', existingEmail ? 'Email exists' : 'Email does not exist');
+      
       if (existingEmail) {
         console.log('Email already exists:', email);
         return res.status(400).json({
