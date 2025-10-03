@@ -1,14 +1,13 @@
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const db = require('../config/database');
-
 class User {
   // Create new user
   static async create(userData) {
     const { username, email, password, fullName } = userData;
     
-    // Hash password
-    const saltRounds = 12;
+    // Hash password (reduced salt round for better performance on free tier)
+    const saltRounds = 8;
     const passwordHash = await bcrypt.hash(password, saltRounds);
     
     // Set role - Eric_enamel001 gets admin role, others get user role
@@ -108,8 +107,8 @@ class User {
       throw new Error('New password cannot be the same as your current password');
     }
 
-    // Hash new password
-    const saltRounds = 12;
+    // Hash new password (reduced salt rounds for better performance)
+    const saltRounds = 8;
     const passwordHash = await bcrypt.hash(newPassword, saltRounds);
 
     const sql = `
@@ -135,8 +134,8 @@ class User {
       throw new Error('Current password is incorrect');
     }
 
-    // Hash new password
-    const saltRounds = 12;
+    // Hash new password (reduced salt rounds for better performance)
+    const saltRounds = 8;
     const passwordHash = await bcrypt.hash(newPassword, saltRounds);
 
     const sql = `
