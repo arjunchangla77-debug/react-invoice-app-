@@ -4,9 +4,12 @@ require('dotenv').config();
 
 // Generate JWT token
 const generateToken = (userId) => {
+  const jwtSecret = process.env.JWT_SECRET || 'fallback-secret-key-for-development';
+  console.log('Generating token with secret available:', !!process.env.JWT_SECRET);
+  
   return jwt.sign(
     { userId },
-    process.env.JWT_SECRET,
+    jwtSecret,
     { expiresIn: '24h' }
   );
 };

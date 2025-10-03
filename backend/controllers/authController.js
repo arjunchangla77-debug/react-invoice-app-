@@ -6,10 +6,13 @@ const emailService = require('../services/emailService');
 class AuthController {
   // Register new user
   static async register(req, res) {
+    console.log('Registration attempt started for:', req.body.username);
+    
     try {
       // Check validation errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
+        console.log('Validation failed:', errors.array());
         return res.status(400).json({
           success: false,
           message: 'Validation failed',
@@ -18,34 +21,39 @@ class AuthController {
       }
 
       const { username, email, password, fullName } = req.body;
+      console.log('Registration data validated for:', username);
 
       // Check if user already exists
+      console.log('Checking if user exists:', username);
       const existingUser = await User.findByUsername(username);
       if (existingUser) {
+        console.log('Username already exists:', username);
         return res.status(400).json({
           success: false,
           message: 'Username already exists'
         });
       }
 
+      // Check if email already exists
+      console.log('Checking if email exists:', email);
       const existingEmail = await User.findByEmail(email);
       if (existingEmail) {
+        console.log('Email already exists:', email);
         return res.status(400).json({
           success: false,
-          message: 'Email already registered'
+          message: 'Email already exists'
         });
       }
 
       // Create new user
-      const userId = await User.create({
-        username,
-        email,
-        password,
-        fullName
-      });
+      console.log('Creating new user:', username);
+      const userId = await User.create({ username, email, password, fullName });
+      console.log('User created with ID:', userId);
 
       // Generate JWT token
+      console.log('Generating JWT token for user:', userId);
       const token = generateToken(userId);
+      console.log('JWT token generated successfully');
 
       // Get user data (excluding sensitive information)
       const userData = await User.findById(userId);
