@@ -45,8 +45,16 @@ class User {
 
   // Find user by username
   static async findByUsername(username) {
-    const sql = `SELECT * FROM users WHERE username = ? AND is_active = 1`;
-    return await db.get(sql, [username]);
+    try {
+      const sql = `SELECT * FROM users WHERE username = ? AND is_active = 1`;
+      console.log('Executing SQL query for username:', username);
+      const result = await db.get(sql, [username]);
+      console.log('Username query completed, result:', result ? 'Found user' : 'No user found');
+      return result;
+    } catch (error) {
+      console.error('Error in findByUsername:', error.message);
+      throw error;
+    }
   }
 
   // Verify password
