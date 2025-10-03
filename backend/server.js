@@ -71,6 +71,7 @@ app.use(cors({
     // Allow specific origins
     const allowedOrigins = [
       'https://react-invoice-app-live.vercel.app',
+      'https://react-invoice-app-enamel-pure.vercel.app',
       process.env.FRONTEND_URL
     ].filter(Boolean);
     
