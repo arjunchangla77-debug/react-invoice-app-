@@ -5,6 +5,15 @@ const db = require('../config/database');
 
 const router = express.Router();
 
+// Simple test endpoint (no auth required)
+router.get('/debug/test', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Dental offices API is working',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Get all dental offices (excluding deleted ones)
 router.get('/', authenticateToken, async (req, res) => {
   try {

@@ -61,19 +61,30 @@ router.get('/health', (req, res) => {
 // Debug endpoint to check users in database
 router.get('/debug/users', async (req, res) => {
   try {
-    const users = await User.getAllUsers();
+    const db = require('../config/database');
+    const users = await db.all('SELECT id, username, email, role, created_at FROM users WHERE is_active = 1');
     res.json({
       success: true,
       message: `Found ${users.length} users in database`,
-      users: users.map(u => ({ id: u.id, username: u.username, email: u.email, role: u.role }))
+      users: users
     });
   } catch (error) {
+    console.error('Debug users error:', error);
     res.status(500).json({
       success: false,
       message: 'Error fetching users',
       error: error.message
     });
   }
+});
+
+// Simple test endpoint
+router.get('/debug/test', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Auth debug endpoint working',
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Test email endpoint (development only)
