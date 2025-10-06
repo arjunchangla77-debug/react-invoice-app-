@@ -15,6 +15,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 import { Search, Plus, Building2, Sun, Moon, DollarSign, CheckCircle } from 'lucide-react';
+import apiService from '../services/api';
 
 const Dashboard = () => {
   // Context hooks for authentication, theme, and navigation
@@ -168,17 +169,7 @@ const Dashboard = () => {
   const loadDentalOffices = React.useCallback(async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('authToken');
-      const response = await fetch('/api/dental-offices', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (!response.ok) throw new Error('Failed to fetch dental offices');
-      
-      const result = await response.json();
+      const result = await apiService.getDentalOffices();
       if (result.success) {
         // Load invoice data for all offices (this will set and sort the offices)
         await loadInvoiceData(result.data);
