@@ -110,6 +110,26 @@ class ApiService {
   }
 
   // Dental Office endpoints
+  async getDentalOffices(search = '', includeDeleted = false) {
+    const params = new URLSearchParams();
+    if (search) params.append('search', search);
+    if (includeDeleted) params.append('includeDeleted', 'true');
+    
+    const queryString = params.toString();
+    const endpoint = queryString ? `/dental-offices?${queryString}` : '/dental-offices';
+    
+    return this.makeRequest(endpoint, {
+      method: 'GET',
+    });
+  }
+
+  async createDentalOffice(officeData) {
+    return this.makeRequest('/dental-offices', {
+      method: 'POST',
+      body: JSON.stringify(officeData),
+    });
+  }
+
   async getDentalOffice(officeId) {
     return this.makeRequest(`/dental-offices/${officeId}`, {
       method: 'GET',
