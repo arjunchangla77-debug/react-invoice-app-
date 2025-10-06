@@ -1,5 +1,6 @@
-// Force backend URL for production deployment
+// Force backend URL for production deployment - Updated
 const API_BASE_URL = 'https://invoice-backend-sh6p.onrender.com/api';
+console.log('API Base URL configured:', API_BASE_URL);
 
 class ApiService {
   constructor() {
