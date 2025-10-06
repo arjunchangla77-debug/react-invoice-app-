@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Plus, Trash2, Building2, Save } from 'lucide-react';
-import { apiService } from '../services/api';
+import apiService from '../services/api';
 
 const CreateOffice = () => {
   const { isAuthenticated } = useAuth();
