@@ -1,5 +1,6 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
+const User = require('../models/User');
 const { 
   AuthController, 
   registerValidation, 
@@ -55,6 +56,24 @@ router.get('/health', (req, res) => {
     message: 'Auth service is running',
     timestamp: new Date().toISOString()
   });
+});
+
+// Debug endpoint to check users in database
+router.get('/debug/users', async (req, res) => {
+  try {
+    const users = await User.getAllUsers();
+    res.json({
+      success: true,
+      message: `Found ${users.length} users in database`,
+      users: users.map(u => ({ id: u.id, username: u.username, email: u.email, role: u.role }))
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching users',
+      error: error.message
+    });
+  }
 });
 
 // Test email endpoint (development only)
