@@ -1,5 +1,5 @@
-// Updated API URL configuration for production deployment
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://invoice-backend-sh6p.onrender.com/api';
+// Force backend URL for production deployment
+const API_BASE_URL = 'https://invoice-backend-sh6p.onrender.com/api';
 
 class ApiService {
   constructor() {
