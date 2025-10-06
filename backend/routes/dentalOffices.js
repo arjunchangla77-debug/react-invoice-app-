@@ -101,9 +101,9 @@ router.post('/', [
 
     // Insert dental office
     const officeResult = await db.run(`
-      INSERT INTO dental_offices (name, npi_id, state, town, address, phone_number, email, created_by)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    `, [name, npi_id, state, town, address, phone_number, email, req.user.id]);
+      INSERT INTO dental_offices (name, npi_id, state, town, address, phone_number, email)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `, [name, npi_id, state, town, address, phone_number, email]);
 
     const officeId = officeResult.id;
     console.log('Office created with ID:', officeId);
@@ -115,11 +115,11 @@ router.post('/', [
           await db.run(`
             INSERT INTO lune_machines (
               dental_office_id, serial_number, purchase_date, 
-              connected_phone, sbc_identifier, plan_type, created_by
-            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+              connected_phone, sbc_identifier, plan_type
+            ) VALUES (?, ?, ?, ?, ?, ?)
           `, [
             officeId, lune.serial_number, lune.purchase_date,
-            lune.connected_phone, lune.sbc_identifier, lune.plan_type, req.user.id
+            lune.connected_phone, lune.sbc_identifier, lune.plan_type
           ]);
         }
       }
