@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Plus, Trash2, Building2, Save } from 'lucide-react';
+import { apiService } from '../services/api';
 
 const CreateOffice = () => {
   const { isAuthenticated } = useAuth();
@@ -148,17 +149,7 @@ const CreateOffice = () => {
     setMessage('');
     
     try {
-      const token = localStorage.getItem('authToken');
-      const response = await fetch('/api/dental-offices', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-      
-      const result = await response.json();
+      const result = await apiService.createDentalOffice(formData);
       
       if (result.success) {
         setMessage('Dental office created successfully!');
